@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.AgregarProducto">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiProducto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/ingrese_un_prodcuto"
+            android:inputType="text"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/ingrese_una_descripcion"
+            android:inputType="text"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/btnGuardar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/fondo"
+        android:text="@string/agregar_producto" />
+
+</LinearLayout>
