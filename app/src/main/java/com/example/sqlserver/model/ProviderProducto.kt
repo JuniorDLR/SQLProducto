@@ -1,6 +1,7 @@
 package com.example.sqlserver.model
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
@@ -110,17 +111,26 @@ class ProviderProducto() {
                             val usuario = result.getString("usuario")
                             val pw = result.getString("pw")
                             activityContext.runOnUiThread {
-                                if (userIngresado == usuario && pwIngresado == pw) {
-                                    val intent =
-                                        Intent(activityContext, ProductoActivity::class.java)
-                                    activityContext.startActivity(intent)
+                                if (userIngresado.isBlank() || pwIngresado.isBlank()) {
+                                    AlertDialog.Builder(activityContext)
+                                        .setTitle("Campos vacios")
+                                        .setMessage("debe de ingresar sus credenciales para iniciar")
+                                        .setPositiveButton("Aceptar", null)
+                                        .show()
                                 } else {
-                                    Toast.makeText(
-                                        activityContext,
-                                        "Credenciales incorrectas",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    if (userIngresado == usuario && pwIngresado == pw) {
+                                        val intent =
+                                            Intent(activityContext, ProductoActivity::class.java)
+                                        activityContext.startActivity(intent)
+                                    } else {
+                                        AlertDialog.Builder(activityContext)
+                                            .setTitle("Credenciales incorrectas")
+                                            .setMessage("Los datos ingresados no coinciden con los datos de la base de datos.")
+                                            .setPositiveButton("Aceptar", null)
+                                            .show()
+                                    }
                                 }
+
                             }
                         }
                     }

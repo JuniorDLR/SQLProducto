@@ -25,6 +25,7 @@ class ProductoActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AdapterProducto
     private val viewModelProducto: ViewModelProducto by viewModels()
+    private var positionEditar: Int = -1
 
 
     val launcher =
@@ -36,18 +37,15 @@ class ProductoActivity : AppCompatActivity() {
                     val nombreProducto = data.getStringExtra(PRODUCTO_CODE)
                     val descripcionProducto = data.getStringExtra(DESCRIPCION_CODE)
                     val desicion = intent.getBooleanExtra(EDICION, false)
-                    val posicion = data.getIntExtra(POSICION_CODE, -1)
 
                     if (nombreProducto != null && descripcionProducto != null) {
-                        if (desicion && posicion != -1) {
-                            val productoActuali = listaProducto[posicion].producto
-                            viewModelProducto.editarProducto(
-                                nombreProducto,
-                                descripcionProducto,
-                                productoActuali
-                            )
+                        if (desicion && positionEditar != -1) {
+                            val productoActuali = listaProducto[positionEditar].producto
+                            viewModelProducto.editarProducto(nombreProducto, descripcionProducto, productoActuali)
+
+                            positionEditar = -1
                         } else {
-                            viewModelProducto.asignarActivity(this)
+
                             viewModelProducto.agrearProducto(nombreProducto, descripcionProducto)
                         }
                     }
@@ -115,6 +113,7 @@ class ProductoActivity : AppCompatActivity() {
 
 
     private fun updateItem(update: Int) {
+        positionEditar = update
         val datosPro = listaProducto[update]
 
         val producto = datosPro.producto
@@ -123,7 +122,6 @@ class ProductoActivity : AppCompatActivity() {
         val intent = Intent(this, AgregarProducto::class.java)
         intent.putExtra(PRODUCTO_CODE, producto)
         intent.putExtra(DESCRIPCION_CODE, descripcion)
-        intent.putExtra(POSICION_CODE, update)
         intent.putExtra(EDICION, true)
         launcher.launch(intent)
 

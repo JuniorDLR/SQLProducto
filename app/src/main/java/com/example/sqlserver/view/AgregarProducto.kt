@@ -48,7 +48,6 @@ class AgregarProducto : AppCompatActivity() {
         intent.putExtra(PRODUCTO_CODE, producto)
         intent.putExtra(DESCRIPCION_CODE, descripcion)
         intent.putExtra(EDICION, intent.getBooleanExtra(EDICION, false))
-        intent.putExtra(NOMBRE_CODE, intent.getStringExtra(POSICION_CODE))
         setResult(RESULT_OK, intent)
         finish()
     }
