@@ -7,6 +7,7 @@ import android.widget.SearchView
 
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,7 +26,6 @@ class ProductoActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AdapterProducto
     private val viewModelProducto: ViewModelProducto by viewModels()
-    private var positionEditar: Int = -1
 
 
     val launcher =
@@ -36,17 +36,28 @@ class ProductoActivity : AppCompatActivity() {
                 if (data != null) {
                     val nombreProducto = data.getStringExtra(PRODUCTO_CODE)
                     val descripcionProducto = data.getStringExtra(DESCRIPCION_CODE)
-                    val desicion = intent.getBooleanExtra(EDICION, false)
+                    val desicion = data.getBooleanExtra(EDICION, false)
+                    val posicion = data.getIntExtra(POSICION_CODE, -1)
+
+
+                    AlertDialog.Builder(this)
+                        .setTitle("RECUPERADOS RECUPERADA")
+                        .setMessage("La posicion es: $posicion. La edicion es $desicion")
+                        .setPositiveButton("Aceptar", null)
+                        .show()
 
                     if (nombreProducto != null && descripcionProducto != null) {
-                        if (desicion && positionEditar != -1) {
-                            val productoActuali = listaProducto[positionEditar].producto
-                            viewModelProducto.editarProducto(nombreProducto, descripcionProducto, productoActuali)
-
-                            positionEditar = -1
+                        if (desicion) {
+                            if (posicion != -1) {
+                                val productoActuali = listaProducto[posicion].producto
+                                viewModelProducto.editarProducto(
+                                    nombreProducto,
+                                    descripcionProducto,
+                                    productoActuali
+                                )
+                            }
                         } else {
-
-                            viewModelProducto.agrearProducto(nombreProducto, descripcionProducto)
+                            viewModelProducto.agregarProducto(nombreProducto, descripcionProducto)
                         }
                     }
                 }
@@ -113,7 +124,7 @@ class ProductoActivity : AppCompatActivity() {
 
 
     private fun updateItem(update: Int) {
-        positionEditar = update
+
         val datosPro = listaProducto[update]
 
         val producto = datosPro.producto
@@ -123,6 +134,7 @@ class ProductoActivity : AppCompatActivity() {
         intent.putExtra(PRODUCTO_CODE, producto)
         intent.putExtra(DESCRIPCION_CODE, descripcion)
         intent.putExtra(EDICION, true)
+        intent.putExtra(POSICION_CODE, update)
         launcher.launch(intent)
 
 
@@ -139,7 +151,7 @@ class ProductoActivity : AppCompatActivity() {
         const val DESCRIPCION_CODE = "descripcion"
         const val POSICION_CODE = "posicion"
         const val EDICION = "edicion"
-        const val NOMBRE_CODE = "nombre"
+
     }
 
 

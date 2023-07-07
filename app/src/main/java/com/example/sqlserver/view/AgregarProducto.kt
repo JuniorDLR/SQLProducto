@@ -3,11 +3,12 @@ package com.example.sqlserver.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import com.example.sqlserver.databinding.ActivityAgregarProductoBinding
 import com.example.sqlserver.view.ProductoActivity.Companion.DESCRIPCION_CODE
 import com.example.sqlserver.view.ProductoActivity.Companion.EDICION
-import com.example.sqlserver.view.ProductoActivity.Companion.NOMBRE_CODE
 import com.example.sqlserver.view.ProductoActivity.Companion.POSICION_CODE
+
 import com.example.sqlserver.view.ProductoActivity.Companion.PRODUCTO_CODE
 
 
@@ -21,6 +22,7 @@ class AgregarProducto : AppCompatActivity() {
         setContentView(binding.root)
 
         val desicion = intent.getBooleanExtra(EDICION, false)
+        val posicion = intent.getIntExtra(POSICION_CODE, -1)
         if (desicion) {
 
             val producto = intent.getStringExtra(PRODUCTO_CODE)
@@ -35,11 +37,11 @@ class AgregarProducto : AppCompatActivity() {
         }
 
         binding.btnGuardar.setOnClickListener {
-            capturarDatos()
+            capturarDatos(desicion, posicion)
         }
     }
 
-    private fun capturarDatos() {
+    private fun capturarDatos(desicion: Boolean, posicion: Int) {
 
         val producto = binding.tiProducto.text.toString()
         val descripcion = binding.tiDescripcion.text.toString()
@@ -47,7 +49,8 @@ class AgregarProducto : AppCompatActivity() {
         val intent = Intent(this, ProductoActivity::class.java)
         intent.putExtra(PRODUCTO_CODE, producto)
         intent.putExtra(DESCRIPCION_CODE, descripcion)
-        intent.putExtra(EDICION, intent.getBooleanExtra(EDICION, false))
+        intent.putExtra(EDICION, desicion)
+        intent.putExtra(POSICION_CODE, posicion)
         setResult(RESULT_OK, intent)
         finish()
     }

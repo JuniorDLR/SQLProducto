@@ -38,7 +38,7 @@ class ViewModelProducto() : ViewModel() {
         modelUser.postValue(productoValue)
     }
 
-    fun agrearProducto(producto: String, descripcion: String) {
+    fun agregarProducto(producto: String, descripcion: String) {
         providerProducto.agrearProducto(producto, descripcion)
         val producto = Producto(producto, descripcion)
         modelProducto.postValue(listOf(producto))
@@ -56,16 +56,9 @@ class ViewModelProducto() : ViewModel() {
     }
 
     fun editarProducto(nombreProducto: String, descripcion: String, filtrado: String) {
-        val lista = modelProducto.value?.toMutableList()
-        if (lista != null) {
-            val propiedades = lista.find { it.producto == filtrado }
-            if (propiedades != null) {
-                propiedades.producto = nombreProducto
-                propiedades.descripcion = descripcion
-                providerProducto.actualizarProdcuto(nombreProducto, descripcion, filtrado)
-                modelProducto.postValue(lista)
-            }
-        }
+        providerProducto.actualizarProducto(nombreProducto, descripcion, filtrado)
+        val listaUpdate = Producto(nombreProducto, descripcion)
+        modelProducto.postValue(listOf(listaUpdate))
     }
 
 

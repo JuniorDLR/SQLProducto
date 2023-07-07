@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sqlserver.R
 import com.example.sqlserver.databinding.ItemProductoBinding
@@ -12,13 +13,20 @@ import com.example.sqlserver.model.Producto
 
 
 class AdapterProducto(
-    var listaProducto: MutableList<Producto>,
+    var listaProducto: List<Producto>,
     val onClickDelete: (Int, String) -> Unit,
     val onclickUpdate: (Int) -> Unit
 ) :
     RecyclerView.Adapter<AdapterProducto.MyHolder>(), Filterable {
 
     var filteredList: List<Producto> = listaProducto
+    fun actualizarLista(newList: List<Producto>) {
+        val diffUtilRecycler = DiffUtilRecycler(newList, filteredList)
+        val result = DiffUtil.calculateDiff(diffUtilRecycler)
+        filteredList = newList
+        result.dispatchUpdatesTo(this)
+
+    }
 
     inner class MyHolder(view: View) : RecyclerView.ViewHolder(view) {
 

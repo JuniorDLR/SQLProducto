@@ -188,42 +188,43 @@ class ProviderProducto() {
 
     }
 
-    fun actualizarProdcuto(
-        nombreProducto: String,
-        descripcionProducto: String,
-        filtracion: String
-    ) {
+    fun actualizarProducto(producto: String, descripcion: String, filtrado: String) {
         connectionSQL = ConnectionSQL()
         Thread {
             try {
                 val connection = connectionSQL.dbConn()
-
                 if (connection != null) {
                     val query =
-                        " UPDATE dbo.Producto SET nombreProducto =?, descripcionProducto = ? WHERE nombreProducto = ? "
+                        "UPDATE dbo.Producto SET nombreProducto =? ,descripcionProducto=? WHERE nombreProducto =?"
                     val statement = connection.prepareStatement(query)
-                    statement.setString(1, nombreProducto)
-                    statement.setString(2, descripcionProducto)
-                    statement.setString(3, filtracion)
+                    statement.setString(1, producto)
+                    statement.setString(2, descripcion)
+                    statement.setString(3, filtrado)
                     statement.executeUpdate()
-                    connection.close()
+
                     activityContext.runOnUiThread {
-                        Toast.makeText(activityContext, "Datos actualizados", Toast.LENGTH_SHORT)
-                            .show()
+                        Toast.makeText(
+                            activityContext,
+                            "Producto  actualizado exitosamente",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
+
+                    connection.close()
                 }
+
             } catch (ex: SQLException) {
                 activityContext.runOnUiThread {
                     Toast.makeText(
                         activityContext,
-                        "No se pudieron actualizar los datos",
+                        "Error al agregar el producto a la BD",
                         Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    ).show()
                 }
-                Log.e("ERROR", ex.message!!)
+                Log.e("ERROR_SQL", ex.message!!)
             }
-        }
+        }.start()
+
     }
 
 
