@@ -13,7 +13,7 @@ import com.example.sqlserver.model.Producto
 
 
 class AdapterProducto(
-    var listaProducto: List<Producto>,
+    var listaProducto: MutableList<Producto>,
     val onClickDelete: (Int, String) -> Unit,
     val onclickUpdate: (Int) -> Unit
 ) :
@@ -23,9 +23,12 @@ class AdapterProducto(
     fun actualizarLista(newList: List<Producto>) {
         val diffUtilRecycler = DiffUtilRecycler(newList, filteredList)
         val result = DiffUtil.calculateDiff(diffUtilRecycler)
-        filteredList = newList
         result.dispatchUpdatesTo(this)
+    }
 
+    fun actualizarElemento(posicion: Int, productoActualizado: Producto) {
+        listaProducto[posicion] = productoActualizado
+        notifyItemChanged(posicion)
     }
 
     inner class MyHolder(view: View) : RecyclerView.ViewHolder(view) {

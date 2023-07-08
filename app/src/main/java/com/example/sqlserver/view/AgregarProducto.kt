@@ -14,7 +14,6 @@ import com.example.sqlserver.view.ProductoActivity.Companion.PRODUCTO_CODE
 
 class AgregarProducto : AppCompatActivity() {
 
-
     private lateinit var binding: ActivityAgregarProductoBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +22,7 @@ class AgregarProducto : AppCompatActivity() {
 
         val desicion = intent.getBooleanExtra(EDICION, false)
         val posicion = intent.getIntExtra(POSICION_CODE, -1)
+        val registro = intent.getBooleanExtra("registro", false)
         if (desicion) {
 
             val producto = intent.getStringExtra(PRODUCTO_CODE)
@@ -51,6 +51,7 @@ class AgregarProducto : AppCompatActivity() {
         intent.putExtra(DESCRIPCION_CODE, descripcion)
         intent.putExtra(EDICION, desicion)
         intent.putExtra(POSICION_CODE, posicion)
+        //intent.putExtra("registro", true)
         setResult(RESULT_OK, intent)
         finish()
     }

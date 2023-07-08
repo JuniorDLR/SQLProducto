@@ -40,8 +40,11 @@ class ViewModelProducto() : ViewModel() {
 
     fun agregarProducto(producto: String, descripcion: String) {
         providerProducto.agrearProducto(producto, descripcion)
-        val producto = Producto(producto, descripcion)
-        modelProducto.postValue(listOf(producto))
+        val nuevoProdcuto = Producto(producto, descripcion)
+        val nuevaLista = modelProducto.value?.toMutableList()
+        nuevaLista?.addAll(listOf(nuevoProdcuto))
+        modelProducto.postValue(nuevaLista)
+
 
     }
 
@@ -51,14 +54,15 @@ class ViewModelProducto() : ViewModel() {
             if (eliminado) {
                 val listaActualizada = modelProducto.value?.filter { it.producto != nombre }
                 modelProducto.postValue(listaActualizada)
+            } else {
+                providerProducto.mensaje()
             }
         }
     }
 
     fun editarProducto(nombreProducto: String, descripcion: String, filtrado: String) {
         providerProducto.actualizarProducto(nombreProducto, descripcion, filtrado)
-        val listaUpdate = Producto(nombreProducto, descripcion)
-        modelProducto.postValue(listOf(listaUpdate))
+
     }
 
 

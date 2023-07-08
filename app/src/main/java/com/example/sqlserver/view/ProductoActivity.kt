@@ -19,46 +19,46 @@ import com.example.sqlserver.viewmodel.ViewModelProducto
 import java.util.Objects
 
 class ProductoActivity : AppCompatActivity() {
-    val listaProducto = mutableListOf<Producto>()
+    private var listaProducto = mutableListOf<Producto>()
 
     private lateinit var binding: ActivityProductoBinding
     private lateinit var connectionSQL: ConnectionSQL
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AdapterProducto
     private val viewModelProducto: ViewModelProducto by viewModels()
+    var nombreActual: Int = 0
 
-
-    val launcher =
+    private val launcher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { lauchActivity ->
-
             if (lauchActivity.resultCode == RESULT_OK) {
                 val data = lauchActivity.data
                 if (data != null) {
                     val nombreProducto = data.getStringExtra(PRODUCTO_CODE)
                     val descripcionProducto = data.getStringExtra(DESCRIPCION_CODE)
-                    val desicion = data.getBooleanExtra(EDICION, false)
+                    val decision = data.getBooleanExtra(EDICION, false)
                     val posicion = data.getIntExtra(POSICION_CODE, -1)
+                    val registro = data.getBooleanExtra("registro", false)
 
 
-                    AlertDialog.Builder(this)
-                        .setTitle("RECUPERADOS RECUPERADA")
-                        .setMessage("La posicion es: $posicion. La edicion es $desicion")
-                        .setPositiveButton("Aceptar", null)
-                        .show()
 
                     if (nombreProducto != null && descripcionProducto != null) {
-                        if (desicion) {
-                            if (posicion != -1) {
-                                val productoActuali = listaProducto[posicion].producto
-                                viewModelProducto.editarProducto(
-                                    nombreProducto,
-                                    descripcionProducto,
-                                    productoActuali
-                                )
-                            }
+                        if (decision && posicion != -1) {
+
+                            val actual = listaProducto[nombreActual].producto
+                            val productoActualizado =
+                                Producto(nombreProducto, descripcionProducto)
+                            viewModelProducto.editarProducto(
+                                nombreProducto,
+                                descripcionProducto, actual
+                            )
+                            adapter.actualizarElemento(posicion, productoActualizado)
                         } else {
-                            viewModelProducto.agregarProducto(nombreProducto, descripcionProducto)
+                            viewModelProducto.agregarProducto(
+                                nombreProducto,
+                                descripcionProducto
+                            )
                         }
+
                     }
                 }
             }
@@ -70,37 +70,35 @@ class ProductoActivity : AppCompatActivity() {
         binding = ActivityProductoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initComponet()
+        initComponent()
         viewModelProducto.asignarActivity(this)
         viewModelProducto.obtenerProductos()
         viewModelProducto.modelProducto.observe(this, Observer { productoObserver ->
             if (productoObserver != null) {
-                listaProducto.addAll(productoObserver)
-                adapter.notifyDataSetChanged()
+                listaProducto.clear() // Limpia la lista actual
+                listaProducto.addAll(productoObserver) // Agrega los nuevos datos del ViewModel
+                adapter.notifyDataSetChanged() // Notifica al adaptador para que actualice la vista
             }
-
         })
+
 
         binding.svFiltro.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 return false
             }
 
-            override fun onQueryTextChange(textoFiltado: String?): Boolean {
-                adapter.filter.filter(textoFiltado)
+            override fun onQueryTextChange(textoFiltrado: String?): Boolean {
+                adapter.filter.filter(textoFiltrado)
                 return true
             }
-
         })
-
 
         binding.btnAgregarProducto.setOnClickListener {
             agregarProducto()
         }
     }
 
-
-    private fun initComponet() {
+    private fun initComponent() {
         connectionSQL = ConnectionSQL()
         val recycler = binding.recyclerviewProducto
         recyclerView = recycler
@@ -108,7 +106,8 @@ class ProductoActivity : AppCompatActivity() {
         adapter = AdapterProducto(
             listaProducto = listaProducto,
             onClickDelete = { position, nombre -> deleteItem(position, nombre) },
-            onclickUpdate = { update -> updateItem(update) })
+            onclickUpdate = { update -> updateItem(update) }
+        )
 
         val layoutManager = LinearLayoutManager(this)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -117,29 +116,37 @@ class ProductoActivity : AppCompatActivity() {
     }
 
     private fun deleteItem(position: Int, nombre: String) {
-        listaProducto.removeAt(position)
-        viewModelProducto.eliminarProducto(nombre)
-        adapter.notifyDataSetChanged()
+        val alertDialog = AlertDialog.Builder(this)
+        alertDialog.setTitle("Eliminar elemento")
+        alertDialog.setMessage("¿Está seguro que desea eliminar este elemento?")
+        alertDialog.setPositiveButton("Sí") { dialog, _ ->
+            viewModelProducto.eliminarProducto(nombre)
+            listaProducto.removeAt(position)
+            adapter.notifyDataSetChanged()
+            dialog.dismiss()
+        }
+        alertDialog.setNegativeButton("No") { dialog, _ ->
+            dialog.dismiss()
+        }
+        alertDialog.create().show()
     }
 
 
     private fun updateItem(update: Int) {
-
+        nombreActual = update
         val datosPro = listaProducto[update]
 
         val producto = datosPro.producto
         val descripcion = datosPro.descripcion
-
         val intent = Intent(this, AgregarProducto::class.java)
         intent.putExtra(PRODUCTO_CODE, producto)
         intent.putExtra(DESCRIPCION_CODE, descripcion)
         intent.putExtra(EDICION, true)
         intent.putExtra(POSICION_CODE, update)
         launcher.launch(intent)
-
+        adapter.notifyItemChanged(update)
 
     }
-
 
     private fun agregarProducto() {
         val intent = Intent(this, AgregarProducto::class.java)
@@ -151,8 +158,5 @@ class ProductoActivity : AppCompatActivity() {
         const val DESCRIPCION_CODE = "descripcion"
         const val POSICION_CODE = "posicion"
         const val EDICION = "edicion"
-
     }
-
-
 }

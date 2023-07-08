@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.AgregarProducto">
+    tools:context=".view.RegistroUser">
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -14,10 +14,10 @@
         android:layout_margin="10dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiProducto"
+            android:id="@+id/tiUsuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/ingrese_un_prodcuto"
+            android:hint="@string/usuario"
             android:inputType="text"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -29,23 +29,23 @@
         android:layout_margin="10dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiDescripcion"
+            android:id="@+id/tiContraseña"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/ingrese_una_descripcion"
-            android:inputType="text"
+            android:hint="@string/contrase_a"
+            android:inputType="textPassword"
             android:textSize="20sp"
             android:textStyle="bold" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <Button
-        android:id="@+id/btnGuardar"
+        android:id="@+id/btnGuardarUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:backgroundTint="@color/fondo"
-        android:text="@string/agregar_producto"
+        android:text="@string/guardar_usuario"
         android:textSize="20sp" />
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.sqlserver.view
 
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
@@ -22,16 +23,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        viewModelProducto.asignarActivity(this)
         binding.btnIniciar.setOnClickListener {
             inicio()
         }
+        binding.tvRegistrar.setOnClickListener {
+            registrarUsuario()
+        }
+
+
+    }
+
+    private fun registrarUsuario() {
+        val intent = Intent(this, RegistroUser::class.java)
+        startActivity(intent)
     }
 
     private fun inicio() {
         val user = binding.etUser.text.toString()
         val pw = binding.etPW.text.toString()
-        viewModelProducto.asignarActivity(this)
         viewModelProducto.iniciarSesion(user, pw)
     }
 

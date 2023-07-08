@@ -69,7 +69,7 @@ class ProviderProducto() {
                     val statement = connection.prepareStatement(query)
                     statement.setString(1, user)
                     statement.setString(2, pw)
-                    statement.executeQuery()
+                    statement.executeUpdate()
                 } else {
                     activityContext.runOnUiThread {
                         Toast.makeText(activityContext, "BD NULO", Toast.LENGTH_SHORT).show()
@@ -113,8 +113,8 @@ class ProviderProducto() {
                             activityContext.runOnUiThread {
                                 if (userIngresado.isBlank() || pwIngresado.isBlank()) {
                                     AlertDialog.Builder(activityContext)
-                                        .setTitle("Campos vacios")
-                                        .setMessage("debe de ingresar sus credenciales para iniciar")
+                                        .setTitle("Campos vacíos")
+                                        .setMessage("Debe ingresar sus credenciales para iniciar sesión.")
                                         .setPositiveButton("Aceptar", null)
                                         .show()
                                 } else {
@@ -130,7 +130,6 @@ class ProviderProducto() {
                                             .show()
                                     }
                                 }
-
                             }
                         }
                     }
@@ -261,6 +260,14 @@ class ProviderProducto() {
             }
         }
         thread.start()
+    }
+
+    fun mensaje() {
+        Toast.makeText(
+            activityContext,
+            "Error al eliminar el producto",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
 

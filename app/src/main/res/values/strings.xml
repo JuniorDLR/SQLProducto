@@ -10,5 +10,11 @@
     <string name="eliminar">eliminar</string>
     <string name="agregar_producto">Agregar producto</string>
     <string name="ingrese_una_descripcion">Ingrese una descripcion</string>
-    <string name="ingrese_un_prodcuto">Ingrese un prodcuto</string>
+    <string name="ingrese_un_prodcuto">Ingrese un producto</string>
+    <string name="no_tienes_una_cuenta_reg_strate">¿No tienes una cuenta? Regístrate</string>
+    <string name="guardar_usuario">Guardar usuario</string>
+    <string name="usuario">Usuario</string>
+    <string name="contrase_a">Contraseña</string>
+    <string name="letal">letal</string>
+    <string name="_9mm">9mm</string>
 </resources>
