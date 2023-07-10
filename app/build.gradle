@@ -55,6 +55,10 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
     //Activity
     implementation 'androidx.activity:activity-ktx:1.7.2'
+      implementation 'androidx.fragment:fragment-ktx:1.6.0'
+    //navegacion
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
 
 
 }

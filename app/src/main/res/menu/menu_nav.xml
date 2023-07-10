@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/Menu"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Menu" />
+    <item
+        android:id="@+id/Sincronizar"
+        android:icon="@drawable/baseline_cloud_sync_24"
+        android:title="Sincronizar" />
+    <item
+        android:id="@+id/Operar"
+        android:icon="@drawable/baseline_work_24"
+        android:title="Operar" />
+    <item
+        android:id="@+id/Configuracion"
+        android:icon="@drawable/baseline_construction_24"
+        android:title="Configuracion" />
+
+</menu>

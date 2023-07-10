@@ -2,11 +2,15 @@ package com.example.sqlserver.model
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.core.view.isVisible
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import com.example.sqlserver.R
 import com.example.sqlserver.model.sqlserver.ConnectionSQL
-import com.example.sqlserver.view.ProductoActivity
+import com.example.sqlserver.view.MainActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.sql.SQLException
 import kotlin.concurrent.thread
 
@@ -97,7 +101,7 @@ class ProviderProducto() {
     }
 
 
-    fun iniciarSesion(userIngresado: String, pwIngresado: String) {
+    fun iniciarSesion(userIngresado: String, pwIngresado: String, navController: NavController) {
         Thread {
             try {
                 val connection = ConnectionSQL().dbConn()
@@ -119,9 +123,11 @@ class ProviderProducto() {
                                         .show()
                                 } else {
                                     if (userIngresado == usuario && pwIngresado == pw) {
-                                        val intent =
-                                            Intent(activityContext, ProductoActivity::class.java)
-                                        activityContext.startActivity(intent)
+                                        navController.navigate(R.id.action_fragmentLogin_to_fragmenMenu)
+                                        (activityContext as MainActivity).findViewById<BottomNavigationView>(
+                                            R.id.BarraNavegacion
+                                        ).isVisible =
+                                            true
                                     } else {
                                         AlertDialog.Builder(activityContext)
                                             .setTitle("Credenciales incorrectas")

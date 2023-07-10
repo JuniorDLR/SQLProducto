@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.example.sqlserver.model.Producto
 import com.example.sqlserver.model.ProviderProducto
 import com.example.sqlserver.model.User
@@ -14,9 +15,11 @@ class ViewModelProducto() : ViewModel() {
     val modelProducto = MutableLiveData<List<Producto>?>()
     val modelUser = MutableLiveData<User>()
     val providerProducto = ProviderProducto()
+    private lateinit var navController: NavController
 
-    fun asignarActivity(activity: Activity) {
+    fun asignarActivity(activity: Activity, navController: NavController) {
         providerProducto.setActivity(activity)
+        this.navController = navController
     }
 
     fun obtenerProductos() {
@@ -33,7 +36,7 @@ class ViewModelProducto() : ViewModel() {
     }
 
     fun iniciarSesion(user: String, pw: String) {
-        providerProducto.iniciarSesion(user, pw)
+        providerProducto.iniciarSesion(user, pw, navController)
         val productoValue = User(user, pw)
         modelUser.postValue(productoValue)
     }

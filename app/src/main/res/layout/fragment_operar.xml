@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fondo"
-    tools:context=".view.ProductoActivity">
+    tools:context=".FragmentOperar">
 
     <SearchView
         android:id="@+id/svFiltro"
@@ -42,5 +42,3 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-

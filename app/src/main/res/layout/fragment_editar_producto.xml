@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.AgregarProducto">
-
+    tools:context=".FragmentEditarProducto">
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -14,7 +12,7 @@
         android:layout_margin="10dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiProducto"
+            android:id="@+id/tiFragmentProducto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/ingrese_un_prodcuto"
@@ -29,7 +27,7 @@
         android:layout_margin="10dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiDescripcion"
+            android:id="@+id/tiFragmentDescripcion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/ingrese_una_descripcion"
@@ -40,12 +38,12 @@
 
 
     <Button
-        android:id="@+id/btnGuardar"
+        android:id="@+id/btnActualizar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:backgroundTint="@color/fondo"
-        android:text="@string/agregar_producto"
+        android:text="Actualizar producto"
         android:textSize="20sp" />
 
 </LinearLayout>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_grahp"
+    app:startDestination="@id/fragmentLogin">
+
+    <fragment
+        android:id="@+id/fragmentLogin"
+        android:name="com.example.sqlserver.FragmentLogin"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_fragmentLogin_to_fragmenMenu"
+            app:destination="@id/fragmenMenu" />
+        <action
+            android:id="@+id/action_fragmentLogin_to_fragmentUsuario"
+            app:destination="@id/fragmentUsuario" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmenMenu"
+        android:name="com.example.sqlserver.FragmenMenu"
+        android:label="fragment_fragmen_menu"
+        tools:layout="@layout/fragment_fragmen_menu">
+        <action
+            android:id="@+id/action_fragmenMenu_to_fragmentSincronizar"
+            app:destination="@id/fragmentSincronizar" />
+        <action
+            android:id="@+id/action_fragmenMenu_to_fragmentOperar"
+            app:destination="@id/fragmentOperar" />
+        <action
+            android:id="@+id/action_fragmenMenu_to_fragmentConfiguracion"
+            app:destination="@id/fragmentConfiguracion" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentUsuario"
+        android:name="com.example.sqlserver.FragmentUsuario"
+        android:label="fragment_usuario"
+        tools:layout="@layout/fragment_usuario" />
+    <fragment
+        android:id="@+id/fragmentSincronizar"
+        android:name="com.example.sqlserver.FragmentSincronizar"
+        android:label="fragment_sincronizar"
+        tools:layout="@layout/fragment_sincronizar" />
+    <fragment
+        android:id="@+id/fragmentOperar"
+        android:name="com.example.sqlserver.FragmentOperar"
+        android:label="fragment_operar"
+        tools:layout="@layout/fragment_operar">
+        <action
+            android:id="@+id/action_fragmentOperar_to_fragmentAgregarProducto"
+            app:destination="@id/fragmentAgregarProducto" />
+        <action
+            android:id="@+id/action_fragmentOperar_to_fragmentEditarProducto"
+            app:destination="@id/fragmentEditarProducto" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentConfiguracion"
+        android:name="com.example.sqlserver.FragmentConfiguracion"
+        android:label="fragment_configuracion"
+        tools:layout="@layout/fragment_configuracion" />
+    <fragment
+        android:id="@+id/fragmentAgregarProducto"
+        android:name="com.example.sqlserver.FragmentAgregarProducto"
+        android:label="fragment_agregar_producto"
+        tools:layout="@layout/fragment_agregar_producto" />
+    <fragment
+        android:id="@+id/fragmentEditarProducto"
+        android:name="com.example.sqlserver.FragmentEditarProducto"
+        android:label="fragment_editar_producto"
+        tools:layout="@layout/fragment_editar_producto">
+        <argument
+            android:name="selectedPosition"
+            app:argType="integer" />
+        <argument
+            android:name="producto"
+            app:argType="string" />
+        <argument
+            android:name="descripcion"
+            app:argType="string" />
+    </fragment>
+</navigation>
