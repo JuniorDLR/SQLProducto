@@ -77,7 +77,12 @@ class AdapterProducto(
         notifyDataSetChanged()
     }
 
-    fun getDataList(): List<Producto> = listaProducto
+    fun updateList(newList: List<Producto>) {
+        val diffResut = DiffUtil.calculateDiff(DiffUtilRecycler(newList, listaProducto))
+        listaProducto = newList
+        filteredList = newList.toMutableList()
+        diffResut.dispatchUpdatesTo(this)
+    }
 
 
 }

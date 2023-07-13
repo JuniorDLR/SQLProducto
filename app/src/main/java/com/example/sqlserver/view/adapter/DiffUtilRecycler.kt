@@ -13,7 +13,7 @@ class DiffUtilRecycler(
     override fun getNewListSize(): Int = nuevaLista.size
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return viejaLista[oldItemPosition].producto == viejaLista[newItemPosition].producto
+        return viejaLista[oldItemPosition].producto == nuevaLista[newItemPosition].producto
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

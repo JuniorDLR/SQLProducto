@@ -38,7 +38,8 @@ class ProviderProducto() {
             connectionSQL = ConnectionSQL()
 
             try {
-                val listaProducto = mutableListOf<Producto?>() // Crear una nueva lista en cada llamada
+                val listaProducto =
+                    mutableListOf<Producto?>() // Crear una nueva lista en cada llamada
 
                 val connection = connectionSQL.dbConn()
                 if (connection != null) {
@@ -196,34 +197,33 @@ class ProviderProducto() {
 
     fun actualizarProducto(producto: String, descripcion: String, filtrado: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            connectionSQL = ConnectionSQL()
-
             try {
+                connectionSQL = ConnectionSQL()
                 val connection = connectionSQL.dbConn()
                 if (connection != null) {
                     val query =
                         "UPDATE dbo.Producto SET nombreProducto =? ,descripcionProducto=? WHERE nombreProducto =?"
-                    val statement = connection.prepareStatement(query)
-                    statement.setString(1, producto)
-                    statement.setString(2, descripcion)
-                    statement.setString(3, filtrado)
-                    statement.executeUpdate()
+                    connection.prepareStatement(query).use { statement ->
+                        statement.setString(1, producto)
+                        statement.setString(2, descripcion)
+                        statement.setString(3, filtrado)
+                        statement.executeUpdate()
 
-                    CoroutineScope(Dispatchers.Main).launch {
-                        Toast.makeText(
-                            activityContext,
-                            "Producto  actualizado exitosamente",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                activityContext,
+                                "Prodcuto actualizado",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
 
-                    connection.close()
                 }
 
             } catch (ex: SQLException) {
                 CoroutineScope(Dispatchers.Main).launch {
                     Toast.makeText(
-                        activityContext, "Error al agregar el producto a la BD", Toast.LENGTH_SHORT
+                        activityContext, "Error al actualizar el producto a la", Toast.LENGTH_SHORT
                     ).show()
                 }
 

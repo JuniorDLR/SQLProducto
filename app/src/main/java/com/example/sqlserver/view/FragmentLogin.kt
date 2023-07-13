@@ -13,7 +13,6 @@ import com.example.sqlserver.databinding.FragmentLoginBinding
 import com.example.sqlserver.viewmodel.ViewModelProducto
 
 
-
 class FragmentLogin : Fragment() {
     private lateinit var bindingLogin: FragmentLoginBinding
     private val viewModelProducto: ViewModelProducto by viewModels()
@@ -25,7 +24,8 @@ class FragmentLogin : Fragment() {
         bindingLogin = FragmentLoginBinding.inflate(inflater, container, false)
         val navController = NavHostFragment.findNavController(this)
 
-        viewModelProducto.asignarActivity(requireActivity(), navController)
+        viewModelProducto.asignarActivity(requireActivity())
+        viewModelProducto.asignarNav(navController)
 
         bindingLogin.btnIniciar.setOnClickListener {
             inicio()

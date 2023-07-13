@@ -13,16 +13,17 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sqlserver.databinding.FragmentOperarBinding
-import com.example.sqlserver.model.Producto
 import com.example.sqlserver.model.sqlserver.ConnectionSQL
 import com.example.sqlserver.view.adapter.AdapterProducto
 import com.example.sqlserver.viewmodel.ViewModelProducto
 
 
 class FragmentOperar : Fragment() {
+
     private lateinit var bindingOperar: FragmentOperarBinding
     private lateinit var connectionSQL: ConnectionSQL
     private lateinit var recyclerView: RecyclerView
@@ -37,8 +38,6 @@ class FragmentOperar : Fragment() {
     ): View? {
         bindingOperar = FragmentOperarBinding.inflate(inflater, container, false)
 
-
-
         return bindingOperar.root
     }
 
@@ -48,14 +47,15 @@ class FragmentOperar : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initComponent()
         navController = NavHostFragment.findNavController(this)
-        viewModelProducto.asignarActivity(requireActivity(), navController)
+        viewModelProducto.asignarActivity(requireActivity())
+        viewModelProducto.asignarNav(navController)
 
         //viewModelProducto.modelProducto.removeObservers(viewLifecycleOwner)
         viewModelProducto.modelProducto.observe(
             viewLifecycleOwner,
             Observer { productoObserver ->
                 if (productoObserver != null) {
-                    adapter.setList(productoObserver)
+                    adapter.updateList(productoObserver)
                 }
             }
         )
@@ -134,17 +134,7 @@ class FragmentOperar : Fragment() {
             putString(CODE_DESCRIPCION, descripcion)
             putInt(CODE_POSITION, update)
         }
-
-        val fragmentEditarProducto = FragmentEditarProducto()
-        fragmentEditarProducto.arguments = bundle
-        fragmentEditarProducto.navController = navController
-
-        val fragmentManaguer = requireActivity().supportFragmentManager
-        fragmentManaguer.beginTransaction()
-            .replace(R.id.rl_layout, fragmentEditarProducto)
-            .addToBackStack(null)
-            .commit()
-
+        findNavController().navigate(R.id.fragmentEditarProducto, bundle)
     }
 
 

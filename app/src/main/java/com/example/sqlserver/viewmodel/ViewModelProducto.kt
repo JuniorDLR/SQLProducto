@@ -19,8 +19,12 @@ class ViewModelProducto : ViewModel() {
     val modelProducto: LiveData<List<Producto>?> = _modelProducto
     val modelUser: LiveData<User> = _modelUser
 
-    fun asignarActivity(activity: Activity, navController: NavController) {
+    fun asignarActivity(activity: Activity) {
         providerProducto.setActivity(activity)
+
+    }
+
+    fun asignarNav(navController: NavController) {
         this.navController = navController
     }
 
@@ -63,6 +67,9 @@ class ViewModelProducto : ViewModel() {
 
     fun editarProducto(nombreProducto: String, descripcion: String, filtrado: String) {
         providerProducto.actualizarProducto(nombreProducto, descripcion, filtrado)
+        val listaActualizada = _modelProducto.value?.filter { it.producto != nombreProducto }
+        _modelProducto.postValue(listaActualizada)
+
 
     }
 }
