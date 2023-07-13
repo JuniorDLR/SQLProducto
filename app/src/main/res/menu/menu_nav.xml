@@ -1,22 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/Menu"
+        android:id="@+id/fragmenMenu"
         android:icon="@drawable/baseline_home_24"
-        android:title="Menu" />
+        android:title="Menu"
+        app:showAsAction="ifRoom"
+        android:titleCondensed="Menú" />
+
     <item
-        android:id="@+id/Sincronizar"
+        android:id="@+id/fragmentSincronizar"
         android:icon="@drawable/baseline_cloud_sync_24"
-        android:title="Sincronizar" />
+        android:title="Sincronizar"
+        app:showAsAction="ifRoom"
+        android:titleCondensed="Sincronizar" />
+
     <item
-        android:id="@+id/Operar"
+        android:id="@+id/fragmentOperar"
         android:icon="@drawable/baseline_work_24"
-        android:title="Operar" />
+        android:title="Operar"
+        app:showAsAction="ifRoom"
+        android:titleCondensed="Operar" />
+
     <item
-        android:id="@+id/Configuracion"
+        android:id="@+id/fragmentConfiguracion"
         android:icon="@drawable/baseline_construction_24"
-        android:title="Configuracion" />
+        android:title="Configuracion"
+        app:showAsAction="ifRoom"
+        android:titleCondensed="Configuración" />
 
 </menu>

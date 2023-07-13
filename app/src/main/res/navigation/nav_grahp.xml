@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_grahp"
-    app:startDestination="@id/fragmentLogin">
+    app:startDestination="@id/lottieFragment">
 
     <fragment
         android:id="@+id/fragmentLogin"
-        android:name="com.example.sqlserver.FragmentLogin"
+        android:name="com.example.sqlserver.view.FragmentLogin"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmenMenu"
-        android:name="com.example.sqlserver.FragmenMenu"
+        android:name="com.example.sqlserver.view.FragmenMenu"
         android:label="fragment_fragmen_menu"
         tools:layout="@layout/fragment_fragmen_menu">
         <action
@@ -34,17 +34,17 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentUsuario"
-        android:name="com.example.sqlserver.FragmentUsuario"
+        android:name="com.example.sqlserver.view.FragmentUsuario"
         android:label="fragment_usuario"
         tools:layout="@layout/fragment_usuario" />
     <fragment
         android:id="@+id/fragmentSincronizar"
-        android:name="com.example.sqlserver.FragmentSincronizar"
+        android:name="com.example.sqlserver.view.FragmentSincronizar"
         android:label="fragment_sincronizar"
         tools:layout="@layout/fragment_sincronizar" />
     <fragment
         android:id="@+id/fragmentOperar"
-        android:name="com.example.sqlserver.FragmentOperar"
+        android:name="com.example.sqlserver.view.FragmentOperar"
         android:label="fragment_operar"
         tools:layout="@layout/fragment_operar">
         <action
@@ -56,27 +56,28 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentConfiguracion"
-        android:name="com.example.sqlserver.FragmentConfiguracion"
+        android:name="com.example.sqlserver.view.FragmentConfiguracion"
         android:label="fragment_configuracion"
         tools:layout="@layout/fragment_configuracion" />
     <fragment
         android:id="@+id/fragmentAgregarProducto"
-        android:name="com.example.sqlserver.FragmentAgregarProducto"
+        android:name="com.example.sqlserver.view.FragmentAgregarProducto"
         android:label="fragment_agregar_producto"
         tools:layout="@layout/fragment_agregar_producto" />
     <fragment
         android:id="@+id/fragmentEditarProducto"
-        android:name="com.example.sqlserver.FragmentEditarProducto"
+        android:name="com.example.sqlserver.view.FragmentEditarProducto"
         android:label="fragment_editar_producto"
         tools:layout="@layout/fragment_editar_producto">
-        <argument
-            android:name="selectedPosition"
-            app:argType="integer" />
-        <argument
-            android:name="producto"
-            app:argType="string" />
-        <argument
-            android:name="descripcion"
-            app:argType="string" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/lottieFragment"
+        android:name="com.example.sqlserver.view.LottieFragment"
+        android:label="fragment_lottie"
+        tools:layout="@layout/fragment_lottie">
+        <action
+            android:id="@+id/action_lottieFragment_to_fragmentLogin"
+            app:destination="@id/fragmentLogin" />
     </fragment>
 </navigation>
