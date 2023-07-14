@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fondo"
+    android:background="@color/texto"
     tools:context=".view.FragmentOperar">
 
     <androidx.appcompat.widget.Toolbar
@@ -34,7 +34,7 @@
             android:layout_margin="10dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
-            android:background="@color/fondoAdd"
+            android:background="@color/fondoLogon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
@@ -43,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
+            android:backgroundTint="@color/fondoLogon"
             android:layout_marginTop="5dp"
             android:src="@drawable/baseline_add_24" />
     </LinearLayout>

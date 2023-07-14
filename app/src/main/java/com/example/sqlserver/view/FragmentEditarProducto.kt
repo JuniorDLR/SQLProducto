@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.example.sqlserver.databinding.FragmentEditarProductoBinding
 import com.example.sqlserver.view.FragmentOperar.Companion.CODE_DESCRIPCION
 import com.example.sqlserver.view.FragmentOperar.Companion.CODE_POSITION

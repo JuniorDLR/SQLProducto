@@ -8,6 +8,15 @@
     tools:context=".view.FragmentAgregarProducto">
 
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/fondo"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:title="AGREGAR PRODUCTO"
+        app:titleTextColor="@color/texto" />
+
+
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

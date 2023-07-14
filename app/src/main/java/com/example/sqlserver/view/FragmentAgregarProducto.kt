@@ -7,10 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
-import com.example.sqlserver.R
 import com.example.sqlserver.databinding.FragmentAgregarProductoBinding
 import com.example.sqlserver.viewmodel.ViewModelProducto
 
